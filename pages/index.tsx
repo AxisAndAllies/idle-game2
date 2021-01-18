@@ -4,6 +4,8 @@ import { proxy, useProxy } from "valtio";
 import { useEffect, useState } from "react";
 import next from "next";
 
+let round3Digits = (n: number) => Math.round(n * 1000) / 1000;
+
 type Upgrade = {
   id: number;
   add: number;
@@ -26,13 +28,13 @@ const state = proxy({
     {
       id: 2,
       add: 5,
-      baseCost: 25,
+      baseCost: 35,
       numOwned: 0,
     },
     {
       id: 3,
       add: 15,
-      baseCost: 180,
+      baseCost: 130,
       numOwned: 0,
     },
     {
@@ -80,6 +82,7 @@ const IndexPage = () => {
     state.resetMult = nextResetBonus();
     // reset count and upgrades
     state.count = 0;
+    state.add = 0;
     state.upgrades = snapshot.upgrades.map((u) => ({
       ...u,
       numOwned: 0,
@@ -87,14 +90,11 @@ const IndexPage = () => {
   }
 
   function realCost({ baseCost, numOwned }: Upgrade) {
-    return Math.floor(baseCost * Math.pow(1.1, numOwned) * 1000) / 1000;
+    return round3Digits(baseCost * Math.pow(1.1, numOwned));
   }
 
   function resetBonus(numResets: number, count: number) {
-    let m =
-      Math.ceil(
-        Math.pow(Math.pow(1.5, numResets) * Math.log(count + 1), 0.2) * 1000
-      ) / 1000;
+    let m = round3Digits((Math.pow(1.3, numResets) * Math.log(count + 1)) / 5);
     if (m < 1) m = 1;
     return m;
   }
@@ -120,20 +120,23 @@ const IndexPage = () => {
   }, [isActive, seconds, snapshot.add, JSON.stringify(snapshot.upgrades)]);
 
   return (
-    <Layout title="Idle game">
-      <h1>Idle game</h1>
+    <Layout title="Idle away">
+      <h1>Idle away</h1>
       <p>
         {/* <Link href="/about">
         <a>About</a>
       </Link> */}
-        {Math.floor(Math.round(snapshot.count * 1000)) / 1000}
-        <br></br>({perSec()}/sec)
+        {round3Digits(snapshot.count)}
+        <br></br>({round3Digits(perSec())}/sec)
         <br></br>(x{snapshot.resetMult})
         <div>
           <button onClick={() => ++state.count}>+1</button>
           {/* <button onClick={() => (state.count += 10)}>+10</button> */}
           <button onClick={toggle}>toggle {isActive ? "OFF" : "ON"}</button>
-          <button onClick={reset}>
+          <button
+            onClick={reset}
+            disabled={nextResetBonus() <= snapshot.resetMult}
+          >
             reset all upgrades AND score to get{" "}
             <strong>x{nextResetBonus()}</strong> multiplier
           </button>
