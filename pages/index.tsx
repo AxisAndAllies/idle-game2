@@ -94,7 +94,9 @@ const IndexPage = () => {
   }
 
   function resetBonus(numResets: number, count: number) {
-    let m = round3Digits((Math.pow(1.3, numResets) * Math.log(count + 1)) / 5);
+    let m = round3Digits(
+      (Math.pow(1.3, numResets) * Math.sqrt(count + 1)) / 20
+    );
     if (m < 1) m = 1;
     return m;
   }
