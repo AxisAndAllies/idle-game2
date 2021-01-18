@@ -2925,6 +2925,11 @@ prop-types@15.7.2, prop-types@^15.6.2:
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
+proxy-compare@1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/proxy-compare/-/proxy-compare-1.1.4.tgz#bfd72af51647d96af80d6c1b31c29f4c7e2aaca7"
+  integrity sha512-NEawV9OdBuC9jhIxCfrYDyR/Xd28eAVUKBrke6modl10o6uBrEBOfI/6iPomlFr2kQeBR1TWf0pjUOfWJic9Vw==
+
 prr@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
@@ -3916,6 +3921,13 @@ util@^0.11.0:
   integrity sha512-HShAsny+zS2TZfaXxD9tYj4HQGlBezXZMZuM/S5PKLLoZkShZiGk9o5CzukI1LVHZvjdvZ2Sj1aW/Ndn2NB/HQ==
   dependencies:
     inherits "2.0.3"
+
+valtio@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/valtio/-/valtio-0.6.1.tgz#10bc0fe698e6b7944e7f528b1f0c41bbd574909a"
+  integrity sha512-O5qGy/0/t6eT2FiCtTiBL6TF0WbcDhiEZMhIuhyzcXtYYQSc99BAXFsw7fxsl1ZDh3ggTbmWgijeceXhQTN2cA==
+  dependencies:
+    proxy-compare "1.1.4"
 
 vm-browserify@1.1.2, vm-browserify@^1.0.1:
   version "1.1.2"
